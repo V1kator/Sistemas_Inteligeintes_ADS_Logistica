@@ -1,6 +1,6 @@
 ## Tarefas do Projeto - Integração com LEGO EV3 via Servidor Intermediário
 
-### Fase 1: Pesquisa de Opções de Comunicação com LEGO EV3
+### Fase 1: Pesquisa de Opções de Comunicação com LEGO EV4
 - [x] Pesquisar APIs, bibliotecas ou protocolos para comunicação entre web e LEGO EV3.
 - [x] Identificar as abordagens mais viáveis e suas limitações.
 
