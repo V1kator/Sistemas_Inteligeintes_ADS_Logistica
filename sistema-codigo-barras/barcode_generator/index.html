@@ -1,45 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador e Scanner de Código de Barras</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de QR Code para CEP</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="container">
-        <h1>Gerador de Código de Barras por CEP</h1>
-        <div class="input-group">
-            <label for="cepInput">Digite o CEP:</label>
-            <input type="text" id="cepInput" placeholder="Ex: 00000-000" maxlength="9">
-            <button id="generateBarcodeBtn">Gerar Código de Barras</button>
-        </div>
-        <div id="barcodeContainer">
-            <svg id="barcode"></svg>
-        </div>
-        <button id="downloadBarcodeBtn" style="display:none;">Baixar Código de Barras</button>
-        <p id="errorMessage" class="error-message"></p>
-    </div>
+      <h1>Gerador e Leitor de QR Code para CEP</h1>
+      <input
+        type="text"
+        id="cep"
+        placeholder="Digite o CEP (ex: 12345-678 ou 12345678)"
+        maxlength="9"
+      />
+      <button onclick="gerarQRCode()">Gerar QR Code</button>
+      <button id="scanButton" onclick="startScan()">Ler QR Code</button>
+      <button id="stopButton" onclick="stopScan()">Parar Leitura</button>
 
-    <div class="container scanner-section">
-        <h1>Scanner de Código de Barras</h1>
-        <div class="scanner-controls">
-            <button id="startScannerBtn">Iniciar Scanner</button>
-            <button id="stopScannerBtn" style="display:none;">Parar Scanner</button>
-        </div>
-        <div id="interactive" class="viewport">
-            <video id="video" autoplay="true" preload="auto" src="" muted="true" playsinline="true"></video>
-            <canvas class="drawingBuffer"></canvas>
-        </div>
-        <p id="scannedCepResult"></p>
-        <div id="scannedAddressResult"></div>
-        <div id="deliveryPointResult"></div>
-    </div>
+      <div id="videoContainer">
+        <video id="video" playsinline></video>
+      </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/scanner.js"></script>
-</body>
+      <div id="errorMessage" class="error-message"></div>
+
+      <div id="qrcode"></div>
+      <button id="downloadBtn" class="download-btn" onclick="downloadQRCode()">
+        Baixar QR Code
+      </button>
+
+      <div id="address" class="address-info"></div>
+    </div>
+    <script src="scripty.js"></script>
+  </body>
 </html>
-
