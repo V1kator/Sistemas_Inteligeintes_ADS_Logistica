@@ -146,6 +146,8 @@ function tick() {
     }
 }
 
+
+
 function buscarEndereco(cep) {
     const cepNumerico = cep.replace(/\D/g, '');
     const addressDiv = document.getElementById('address');
@@ -187,6 +189,10 @@ function buscarEndereco(cep) {
                 ponto_de_entrega = 0; // UF não mapeada
             }
 
+            // Envia o ponto de entrega para o Arduino
+            enviarParaArduino(ponto_de_entrega);
+
+
 
             // Exibe informações de endereço
             addressDiv.innerHTML = `
@@ -204,39 +210,24 @@ function buscarEndereco(cep) {
         });
 }
 
-function processarCEP(cepText) {
-    // Remover caracteres não numéricos
-    const cep = cepText.replace(/\D/g, '');
 
-    if (cep.length < 8) {
-        document.getElementById('errorMessage').textContent = 'CEP inválido: ' + cepText;
-        return;
+async function enviarParaArduino(ponto_de_entrega) {
+    try {
+        // Pede ao usuário para escolher a porta do Arduino
+        const port = await navigator.serial.requestPort();
+        await port.open({ baudRate: 9600 });
+
+        const encoder = new TextEncoderStream();
+        const outputDone = encoder.readable.pipeTo(port.writable);
+        const writer = encoder.writable.getWriter();
+
+        // Envia o ponto de entrega
+        await writer.write(ponto_de_entrega.toString() + "\n");
+
+        // Libera a porta
+        writer.releaseLock();
+        await outputDone;
+    } catch (err) {
+        console.error("Erro ao enviar para Arduino:", err);
     }
-
-    // Determinar ponto de entrega baseado no primeiro dígito
-    const primeiroDigito = parseInt(cep.charAt(0));
-    let ponto_de_entrega;
-
-    if (primeiroDigito === 4 || primeiroDigito === 5 || primeiroDigito === 6) {
-        ponto_de_entrega = 1; // Norte e Nordeste
-    } else if (primeiroDigito === 7) {
-        ponto_de_entrega = 3; // Centro-Oeste
-    } else {
-        ponto_de_entrega = 2; // Sul e Sudeste (0,1,2,3,8,9)
-    }
-
-    // Exibir resultado
-    const regioes = {
-        1: 'Norte e Nordeste',
-        2: 'Sul e Sudeste',
-        3: 'Centro-Oeste'
-    };
-
-    document.getElementById('address').innerHTML = `
-        <h3>Resultado da Leitura</h3>
-        <p>CEP: ${cepText}</p>
-        <p>Ponto de Entrega: ${ponto_de_entrega} (${regioes[ponto_de_entrega]})</p>
-    `;
-
-    stopScan();
 }
