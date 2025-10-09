@@ -4,36 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gerador de QR Code para CEP</title>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <link rel="icon" type="image/svg" href="./icons/favicon.svg" />
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=Hyj2p7yrgyTojFeGRh9NZkTDiaudDr7teSimARLgqS-h_qX8E7agJdwbPipro90_uvz5i-63FWXI9KsD6dtagZS4zQpmDKOk2j9vyIDkgaz_4GhY8T9AXUOw6pnMFR8HosnINNod8i2wK4CX7vfqTx-YxF1UZc5nuJhm49ZuUh6mQeqjY2RF3cd1ybBD7w_PMMd_aoV3g0PAN3MaSBYGqkmdJAq-JyeuLScXz2ThQ_g87-jMHqN5VhW03X_qx8uY2oSRnBAWBvUZ8eYi_pxbp2xpt-IZp8-qUoLPirvlt6lRHESDEMKv-txN47B3VHrHeZqkah1EnFcmTqO46IIkVZQfhgIJhNty9wA_ZWQ4VME_wn_f-4ef0-q2PXny7K_KApt5KWHaSAfP_Ty-N5qwoTHUnO8dK7PxT2kIOWXSy0FmLxcLsyMeI7J4-qX2pnAvyjjWkqJqUd1EAAEvpGM5DuvVcoxMyXLpje-L2TRfuNXIbI4ifYNxaqKzShOlC8yor1vp33gb3YNiaioW7VKkw7-r0qkA4wfuxJP6DtSV-xV-9rq9lvEVPG5BrzWU1N8TNdMBPleIO_MNmKVYFRzOQpu6gc5joNFe9-dusJ_UDGFtzHSgKwUZV2efGp4z-b4i-I6JRJvW_Dj29BpxWTsEjlbIQLnTtvNj4QnDIfzVZrIjgsGWUQz1eG6nCIuuqFNN-_nvukeCIhbc1LlX2Z77h4Xmm0DmsPEVhWoqwd9jgftilVVjapFlPIXbTOsY9PNd--HGpsaJfRsxWa_D_6yGlexG6LWmVRHfCMJeQZrKgHh1jl64i7hFBvYK5EVYNFS6dSugt9wisfg80I1PwpGgMJZ90nPK3Bg_gZJAWdp2Fepntu7-kRBPfUaqfjGLT-sprrezTx6xl0f56YGUVp6BNA" charset="UTF-8"></script><script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
-      <h1>Gerador e Leitor de QR Code para CEP</h1>
-      <input
-        type="text"
-        id="cep"
-        placeholder="Digite o CEP (ex: 12345-678 ou 12345678)"
-        maxlength="9"
-      />
-      <button onclick="gerarQRCode()">Gerar QR Code</button>
-      <button id="scanButton" onclick="startScan()">Ler QR Code</button>
-      <button id="stopButton" onclick="stopScan()">Parar Leitura</button>
-
-      <div id="videoContainer">
-        <video id="video" playsinline></video>
+      
+      <div class="input-card">
+        <input
+          type="text"
+          id="cep"
+          placeholder="Digite o CEP (ex: 12345-678 ou 12345678)"
+          maxlength="9"
+          class="cep-input"
+        />
       </div>
+
+      <div class="top-section">
+        <div class="buttons-card">
+          <button class="btn btn-generate" onclick="gerarQRCode()">Gerar QR Code</button>
+          <button class="btn btn-scan" id="scanButton" onclick="startScan()">Ler QR Code</button>
+          <button class="btn btn-stop" id="stopButton" onclick="stopScan()">Parar Leitura</button>
+          <button class="btn btn-download" id="downloadBtn" onclick="downloadQRCode()">
+            <img src="./icons/download.png" class="download-icon">
+            Baixar QR Code
+          </button>
+        </div>
+
+        <div class="qr-card">
+          <div id="qrcode"></div>
+          <div id="videoContainer" class="video-container">
+            <video id="video" playsinline></video>
+          </div>
+        </div>
+      </div>
+
+      
 
       <div id="errorMessage" class="error-message"></div>
 
-      <div id="qrcode"></div>
-      <button id="downloadBtn" class="download-btn" onclick="downloadQRCode()">
-        Baixar QR Code
-      </button>
-
-      <div id="address" class="address-info"></div>
+      <div id="address">
+      </div>
     </div>
     <script src="scripty.js"></script>
   </body>
 </html>
+

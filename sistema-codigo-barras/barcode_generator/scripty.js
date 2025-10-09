@@ -1,6 +1,9 @@
 let currentQRCode = null;
 let videoStream = null;
 
+// Esconder
+document.getElementById('address').style.display = 'none';
+
 function gerarQRCode() {
     const cepInput = document.getElementById('cep');
     const cep = cepInput.value.replace(/\D/g, '');
@@ -36,6 +39,7 @@ function gerarQRCode() {
                         <p>${data.logradouro || 'Não informado'}</p>
                         <p>${data.bairro || 'Não informado'}</p>
                         <p>${data.localidade} - ${data.uf}</p>
+                        <p>${data.complemento} </p>
                     `;
 
             // Gera QR Code com o CEP (apenas números)
@@ -50,7 +54,7 @@ function gerarQRCode() {
             });
 
             // Mostra botão de download
-            downloadBtn.style.display = 'block';
+            downloadBtn.style.display = 'flex';
         })
         .catch(error => {
             errorDiv.textContent = `Erro: ${error.message}`;
@@ -92,7 +96,9 @@ function startScan() {
     document.getElementById('address').innerHTML = '';
     document.getElementById('errorMessage').style.display = 'none';
     document.getElementById('downloadBtn').style.display = 'none';
+    document.getElementById('address').style.display = 'none';
 
+    
     // Mostrar o vídeo
     videoContainer.style.display = 'block';
     stopButton.style.display = 'inline-block';
@@ -193,16 +199,45 @@ function buscarEndereco(cep) {
             enviarParaArduino(ponto_de_entrega);
 
 
-
             // Exibe informações de endereço
+                document.getElementById('address').style.display = 'flex';
             addressDiv.innerHTML = `
-                        <h3>Endereço a partir do QR Code:</h3>
-                        <p>${data.logradouro || 'Não informado'}</p>
-                        <p>${data.bairro || 'Não informado'}</p>
-                        <p>${data.localidade} - ${data.uf}</p>
-                        <p>CEP: ${data.cep}</p>
-                        <div class="ponto-entrega">Ponto de Entrega: ${ponto_de_entrega}</div>
-                    `;
+                    <div class="address-wrapper">
+                        <div class="address-card">
+                            <div class="address-left">
+                            <div class="address-info">
+                                <h3>Dados - Encomenda</h3>
+                                <p>Logradouro: ${data.logradouro || 'Não informado'}</p>
+                                <p>Complemento: ${data.complemento || 'Não informado'}</p>
+                                <p>Bairro: ${data.bairro || 'Não informado'}</p>
+                                <p>${data.localidade} - ${data.uf}</p>
+                                <p>CEP: ${data.cep}</p>
+                            </div>
+                            </div>
+
+                            <div class="address-right">
+                            <h4>Ponto Detectado!</h4>
+                            <img src="./icons/caminhao.gif" alt="Gif entrega" class="gif">
+                            <div class="ponto-entrega">Ponto de Entrega: ${ponto_de_entrega}</div>
+                            </div>
+                        </div>
+
+                        <div class="delivery-status-card">
+                            <h3 class="delivery-title">Em trânsito</h3>
+                            <p class="delivery-subtitle">Encomenda à caminho.</p>
+
+                            <div class="delivery-progress">
+                            <div class="step active"><span class="icon"><img src="./icons/box.svg" class="icons"></span></div>
+                            <div class="step"><span class="icon"><img src="./icons/truck.svg" class="icons"></span></div>
+                            <div class="step"><span class="icon"><img src="./icons/home.svg" class="icons"></span></div>
+                            </div>
+
+                            <p class="delivery-time-label">Entrega estimada</p>
+                            <p class="delivery-time">9 de outubro </p>
+                        </div>
+                        </div>
+
+                `;
         })
         .catch(error => {
             errorDiv.textContent = `Erro: ${error.message}`;

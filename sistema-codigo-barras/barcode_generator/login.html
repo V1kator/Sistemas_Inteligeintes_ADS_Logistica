@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Frete</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="info-section">
+            <div class="brand">
+                <h1 class="logo">TotalFrete.</h1>
+                <p class="tagline">Entrega rápida que o Brasil agradece</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <div>
+                            <img src="./icons/Group 1.svg" class="box-icon">
+                        </div>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Quer rapidez e confiança?</h3>
+                        <p>Do Oiapoque ao Chuí, nossa equipe garante que seu pedido chegue rápido, seguro e no prazo, porque sua confiança é a nossa maior prioridade.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">
+                        <div>
+                            <img src="./icons/Group 2.svg" class="delivery-icon">
+                        </div>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Quer praticidade e confiança na hora de receber?</h3>
+                        <p>Do Sertão ao Litoral, sua entrega chega completa e sem complicação, porque cada cliente merece tranquilidade do começo ao fim.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-section">
+            <div class="login-card">
+                <h2>Log In</h2>
+                <p class="signup-link">Ainda não possui uma conta? <a href="#" class="create-link">Crie aqui.</a></p>
+                
+                <form class="login-form">
+                    <input type="email" placeholder="Email" class="input-field" required>
+
+                    <div class="password-container">
+                        <input type="password" placeholder="Senha" class="input-field" id="senha" required>
+
+                        <span class="toggle-password" onclick="togglePassword()">
+                            <img src="./icons/eye-show-svgrepo-com.svg" id="eye-show" class="eye-icon">
+                            <img src="./icons/eye-hide-svgrepo-com.svg" id="eye-hide" class="eye-icon hidden">
+                        </span>
+                        </div>
+                    <button type="submit" class="login-btn" onclick="window.location.href='index.html'">Fazer Login</button>
+                </form>
+                
+                <div class="divider">
+                    <span>Ou, experimente com</span>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-btn facebook-btn">
+                        <span class="social-cion"><img src="./icons/facebookicon.png"></span>
+                        Facebook
+                    </button>
+                    <button class="social-btn google-btn">
+                        <span class="social-icon"><img src="./icons/googleicon.png"></span>
+                        Google
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+  function togglePassword() {
+    const input = document.getElementById("senha");
+    const eyeShow = document.getElementById("eye-show");
+    const eyeHide = document.getElementById("eye-hide");
+
+    if (input.type === "password") {
+      input.type = "text";
+      eyeShow.classList.add("hidden");
+      eyeHide.classList.remove("hidden");
+    } else {
+      input.type = "password";
+      eyeShow.classList.remove("hidden");
+      eyeHide.classList.add("hidden");
+    }
+  }
+</script>
