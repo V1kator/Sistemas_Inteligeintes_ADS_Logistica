@@ -96,11 +96,13 @@ void processSerial() {
 
     if (comando.equalsIgnoreCase("DIREITA")) {
       Serial.println("Girando 360° para DIREITA...");
+      delay(3000);
       myStepper.step(stepsPerRevolution);
       Serial.println("Concluído.");
     } 
     else if (comando.equalsIgnoreCase("ESQUERDA")) {
       Serial.println("Girando 360° para ESQUERDA...");
+      delay(3000);
       myStepper.step(-stepsPerRevolution);
       Serial.println("Concluído.");
     } 

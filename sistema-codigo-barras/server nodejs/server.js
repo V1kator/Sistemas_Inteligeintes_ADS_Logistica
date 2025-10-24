@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 
 // ajuste "COM3" ou "/dev/ttyACM0" conforme seu SO
-const arduino = new SerialPort({ path: "COM7", baudRate: 9600 });
+const arduino = new SerialPort({ path: "COM8", baudRate: 9600 });
 const parser = arduino.pipe(new ReadlineParser({ delimiter: "\n" }));
 
 parser.on("data", (line) => {
